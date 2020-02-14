@@ -55,8 +55,9 @@ class regession_model():
 
 X, Y = data_gen()
 Model = regession_model(X, Y)
-for i in range(10):
+for i in range(5):
     for j in range(1000):
-        print(Model.train())
+       Model.train()
+    print(Model.train())
 Final = np.array(Model.report()).T
 print(Final)

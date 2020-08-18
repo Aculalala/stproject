@@ -7,4 +7,5 @@ def data_gen(Nk=10, K=4, p=2000, d=3):
     for i in range(K):
         X[i * Nk:(i + 1) * Nk, 0] += d * np.cos((i / K - 0.125) * np.pi * 2)
         X[i * Nk:(i + 1) * Nk, 1] += d * np.sin((i / K - 0.125) * np.pi * 2)
+    # print(X)
     return X, Y

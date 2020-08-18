@@ -1,4 +1,6 @@
 
 *.pyc
 .idea
+.7z
+/results
 __*

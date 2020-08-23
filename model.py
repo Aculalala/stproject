@@ -1,10 +1,10 @@
 from math import isnan
+from warnings import simplefilter
 
 import numpy as np
 import tensorflow as tf
-import tensorflow.python.util.deprecation as deprecation
 
-deprecation._PRINT_DEPRECATION_WARNINGS = False
+simplefilter(action='ignore', category=FutureWarning)
 
 
 def relu(x):

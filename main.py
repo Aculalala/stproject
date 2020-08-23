@@ -42,7 +42,7 @@ def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, re
 
 
 Env = 'Sim'
-Repeat = 2
+Repeat = 100
 if __name__ == '__main__':
     if Env == 'Sim':
         def path_gen(Env, K, p, Nk, loss_function, l, al, q):
@@ -56,7 +56,7 @@ if __name__ == '__main__':
         os.makedirs(os.path.join(os.getcwd(), "results"))
         Names = (
             "K", "p", "Nk", "Loss_f", "Lambda", "Alpha", "q", "id", "Loss_train", "Loss_test", "Ac_train", "Ac_test",
-            "i")
+            "non_zero", "i")
         print(",".join(Names), file=open("./results/Detail_summary.csv", 'w+'), flush=True)
         report_lock = multiprocessing.Lock()
 
@@ -93,7 +93,6 @@ if __name__ == '__main__':
 
 
             for l, al, q in product(ls, als, qs):
-                break
                 base_path = path_gen(Env, K, p, Nk, "DWDnc", l, al, q)
                 os.makedirs(base_path)
                 Coordinator.acquire()
@@ -107,7 +106,6 @@ if __name__ == '__main__':
             # als = {0.1, 0.5, 0.9}
             # qs = {0.5, 1, 20}
             for l, al, q in product(ls, als, qs):
-                break
                 base_path = path_gen(Env, K, p, Nk, "DWDSM", l, al, q)
                 os.makedirs(base_path)
                 Coordinator.acquire()

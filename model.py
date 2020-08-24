@@ -1,10 +1,11 @@
 from math import isnan
 from warnings import simplefilter
 
+simplefilter(action='ignore', category=FutureWarning)
 import numpy as np
 import tensorflow as tf
 
-simplefilter(action='ignore', category=FutureWarning)
+
 
 
 def relu(x):
@@ -62,7 +63,7 @@ class regession_model():
 
 
         elif self.loss_function == 'logistic':
-            self.optimizer = tf.train.AdamOptimizer(learning_rate=0.0003)
+            self.optimizer = tf.train.AdamOptimizer(learning_rate=0.003)
             self.loss_1 = tf.reduce_mean(
                 tf.nn.softmax_cross_entropy_with_logits(labels=tf.one_hot(self.TF_Y, depth=self.K),
                                                         logits=self.XBpA))

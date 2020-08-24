@@ -63,13 +63,16 @@ class regession_model():
 
 
         elif self.loss_function == 'logistic':
-            self.optimizer = tf.train.AdamOptimizer(learning_rate=0.001)
+            ss = 0.01
+            self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=ss)
             self.loss_1 = tf.reduce_mean(
                 tf.nn.softmax_cross_entropy_with_logits(labels=tf.one_hot(self.TF_Y, depth=self.K),
                                                         logits=self.XBpA))
             self.loss_2 = self.loss_para['l'] * tf.reduce_mean(tf.abs(self.TF_Var_B))
             self.loss = self.loss_1 + self.loss_2
-            self.train_op = self.optimizer.minimize(self.loss)
+            self.shrink = tf.assign(
+                np.sign(self.TF_Var_B) * tf.nn.relu(tf.abs(self.TF_Var_B) - ss * self.loss_para['l']))
+            self.train_op = [self.optimizer.minimize(self.loss_1), self.shrink]
 
         self.predictions = tf.cast(tf.argmax(self.XBpA, 1), tf.int32)
         self.ac = tf.reduce_mean(tf.cast(tf.equal(self.TF_Y, self.predictions), tf.float32))
@@ -111,7 +114,7 @@ class regession_model():
             # print(i)
             after = self.train(X, Y)[0]
             # print(after)
-            if (before < after + 1e-6 and self.i > 1000) or self.i > 20000:
+            if (before < after + 1e-6 and self.i > 100) or self.i > 20000:
                 break
             if isnan(after):
                 if retry:

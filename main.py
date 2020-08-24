@@ -18,8 +18,8 @@ def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, re
     Model = regession_model(p=data['p'], K=data['K'], loss_function=loss_function, loss_para=loss_para)
     for r in range(repeat):
         if data['Env'] == 'Sim':
-            X, Y = data_gen(Nk=data['Nk'], K=data['K'], p=data['p'], seed=hash("Train+str(r)"))
-            TX, TY = data_gen(Nk=data['Nk'], K=data['K'], p=data['p'], seed=hash("Test+str(r)"))
+            X, Y = data_gen(Nk=data['Nk'], K=data['K'], p=data['p'], seed=hash("Train" + str(r)))
+            TX, TY = data_gen(Nk=data['Nk'], K=data['K'], p=data['p'], seed=hash("Test" + str(r)))
         elif data['Env'] == 'MNIST':
             X, Y = data_gen_MNIST(data['Nk'] * data['K'], False)
             TX, TY = data_gen_MNIST(data['Nk'] * data['K'], True)

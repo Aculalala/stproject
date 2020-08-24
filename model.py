@@ -71,7 +71,7 @@ class regession_model():
             self.loss_2 = self.loss_para['l'] * tf.reduce_mean(tf.abs(self.TF_Var_B))
             self.loss = self.loss_1 + self.loss_2
             self.shrink = tf.assign(
-                np.sign(self.TF_Var_B) * tf.nn.relu(tf.abs(self.TF_Var_B) - ss * self.loss_para['l']))
+                tf.math.sign(self.TF_Var_B) * tf.nn.relu(tf.math.abs(self.TF_Var_B) - ss * self.loss_para['l']))
             self.train_op = [self.optimizer.minimize(self.loss_1), self.shrink]
 
         self.predictions = tf.cast(tf.argmax(self.XBpA, 1), tf.int32)

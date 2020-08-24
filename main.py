@@ -58,7 +58,7 @@ if __name__ == '__main__':
                                 "Alpha=" + str(al), "q=" + str(q))
 
 
-        Coordinator = multiprocessing.Semaphore(16)
+        Coordinator = multiprocessing.Semaphore(100)
         rmtree("./results", ignore_errors=True)
         os.makedirs(os.path.join(os.getcwd(), "results", "env=Sim"))
         Names = (

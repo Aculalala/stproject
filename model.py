@@ -114,7 +114,7 @@ class regession_model():
             # print(i)
             after = self.train(X, Y)[0]
             # print(after)
-            if (before < after + 1e-6 and self.i > 100) or self.i > 20000:
+            if (before < after + 1e-6 and self.i > 1000) or self.i > 20000:
                 break
             if isnan(after):
                 if retry:

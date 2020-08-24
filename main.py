@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
         for K, p, Nk in reversed(Env_combination):
             # Logistic
-            ls = {0.3, 0.1, 0.06, 0.03, 0.01, 0.006, 0.003, 0.001}
+            ls = {1, 0.3, 0.1, 0.06, 0.03, 0.01, 0.006, 0.003, 0.001}
             for l in ls:
                 base_path = path_gen(Env, K, p, Nk, "logistic", l, "NA", "NA")
                 os.makedirs(base_path)

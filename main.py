@@ -48,9 +48,10 @@ def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, re
     return None
 
 
-Env = 'MNIST'
+
 Repeat = 100
 if __name__ == '__main__':
+    Env = input("Enter Env:")
     if Env == 'Sim':
         def path_gen(Env, K, p, Nk, loss_function, l, al, q):
             return os.path.join(os.getcwd(), "results", "env=" + str(Env), "K=" + str(K), "p=" + str(p),

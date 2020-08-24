@@ -48,7 +48,7 @@ def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, re
     return None
 
 
-Env = 'Sim'
+Env = 'MNIST'
 Repeat = 100
 if __name__ == '__main__':
     if Env == 'Sim':
@@ -107,7 +107,7 @@ if __name__ == '__main__':
                                 "Alpha=" + str(al), "q=" + str(q))
 
 
-        Coordinator = multiprocessing.Semaphore(16)
+        Coordinator = multiprocessing.Semaphore(96)
         rmtree("./results", ignore_errors=True)
         os.makedirs(os.path.join(os.getcwd(), "results", "env=" + str(Env)))
         Names = (
@@ -117,7 +117,7 @@ if __name__ == '__main__':
               flush=True)
         report_lock = multiprocessing.Lock()
 
-        for Nk in (50, 100, 200):
+        for Nk in (50, 100, 200, 700):
             # DWD
             ls = {0.06, 0.03, 0.01, 0.006, 0.005, 0.004, 0.003, 0.001, 0.0006}
             als = {0.1, 0.5, 0.9}

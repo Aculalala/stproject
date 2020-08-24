@@ -49,7 +49,7 @@ def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, re
 
 
 Env = 'Sim'
-Repeat = 100
+Repeat = 1
 if __name__ == '__main__':
     if Env == 'Sim':
         def path_gen(Env, K, p, Nk, loss_function, l, al, q):
@@ -58,13 +58,13 @@ if __name__ == '__main__':
                                 "Alpha=" + str(al), "q=" + str(q))
 
 
-        Coordinator = multiprocessing.Semaphore(96)
+        Coordinator = multiprocessing.Semaphore(16)
         rmtree("./results", ignore_errors=True)
         os.makedirs(os.path.join(os.getcwd(), "results"))
         Names = (
             "K", "p", "Nk", "Loss_f", "Lambda", "Alpha", "q", "id", "Loss_train", "Loss_test", "Ac_train", "Ac_test",
             "non_zero", "i")
-        print(",".join(Names), file=open("./results/Detail_summary.csv", 'w+'), flush=True)
+        print(",".join(Names), file=open("./results/env=Sim/Detail_summary.csv", 'w+'), flush=True)
         report_lock = multiprocessing.Lock()
         Env_combination = ((3, 100, 50), (3, 150, 100), (5, 150, 100), (5, 200, 150))
 

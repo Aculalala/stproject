@@ -49,7 +49,7 @@ def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, re
     return None
 
 
-Env = 'MNIST'
+Env = 'Sim'
 Repeat = 10
 if __name__ == '__main__':
     if Env == 'Sim':

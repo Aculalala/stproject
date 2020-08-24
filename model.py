@@ -63,7 +63,7 @@ class regession_model():
 
 
         elif self.loss_function == 'logistic':
-            self.optimizer = tf.train.AdamOptimizer(learning_rate=0.003)
+            self.optimizer = tf.train.AdamOptimizer(learning_rate=0.001)
             self.loss_1 = tf.reduce_mean(
                 tf.nn.softmax_cross_entropy_with_logits(labels=tf.one_hot(self.TF_Y, depth=self.K),
                                                         logits=self.XBpA))

@@ -58,7 +58,7 @@ if __name__ == '__main__':
                                 "Alpha=" + str(al), "q=" + str(q))
 
 
-        Coordinator = multiprocessing.Semaphore(128)
+        Coordinator = multiprocessing.Semaphore(96)
         rmtree("./results", ignore_errors=True)
         os.makedirs(os.path.join(os.getcwd(), "results"))
         Names = (
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
         for K, p, Nk in reversed(Env_combination):
             # DWD
-            ls = {0.006, 0.003, 0.001, 0.0006, 0.0003, 0.0001}
+            ls = {0.06, 0.03, 0.01, 0.006, 0.005, 0.004, 0.003, 0.001, 0.0006}
             als = {0.1, 0.5, 0.9}
             qs = {0.5, 1, 20}
             for dwdv in ["DWD"]:  # ,"DWDnc","DWDSM"
@@ -90,6 +90,7 @@ if __name__ == '__main__':
                 base_path = path_gen(Env, K, p, Nk, "logistic", l, "NA", "NA")
                 os.makedirs(base_path)
                 Coordinator.acquire()
+
                 print("working on: " + base_path)
                 multiprocessing.Process(target=work, args=(
                     Coordinator, report_lock, 'logistic', {'l': l}, {'Env': 'Sim', 'K': K, 'p': p, 'Nk': Nk}, base_path,
@@ -115,9 +116,9 @@ if __name__ == '__main__':
               flush=True)
         report_lock = multiprocessing.Lock()
 
-        for Nk in (20, 50, 100):
+        for Nk in (50, 100, 200):
             # DWD
-            ls = {0.006, 0.003, 0.001, 0.0006, 0.0003, 0.0001}
+            ls = {0.06, 0.03, 0.01, 0.006, 0.005, 0.004, 0.003, 0.001, 0.0006}
             als = {0.1, 0.5, 0.9}
             qs = {0.5, 1, 20}
             for dwdv in ["DWD"]:  # ,"DWDnc","DWDSM"

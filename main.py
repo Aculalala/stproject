@@ -41,17 +41,17 @@ def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, re
         str(r), res['Loss_train'], res['Loss_test'], res['Ac_train'], res['Ac_test'], res['large_parameter'], res['i'])
         to_report = list(map(lambda x: str(x), settings + loss_para_pad_to_3 + rps))
         report_lock.acquire()
-        print(",".join(to_report), file=open(os.path.join(os.getcwd(), "results", "env=" + str(Env), "sum.csv"), 'a'))
+        print(",".join(to_report),
+              file=open(os.path.join(os.getcwd(), "results", "env=" + data['Env'], "sum.csv"), 'a'))
         report_lock.release()
         Model.reset()
     Coordinator.release()
     return None
 
 
-
-Repeat = 100
+Env = 'MNIST'
+Repeat = 10
 if __name__ == '__main__':
-    Env = input("Enter Env:")
     if Env == 'Sim':
         def path_gen(Env, K, p, Nk, loss_function, l, al, q):
             return os.path.join(os.getcwd(), "results", "env=" + str(Env), "K=" + str(K), "p=" + str(p),
@@ -59,7 +59,7 @@ if __name__ == '__main__':
                                 "Alpha=" + str(al), "q=" + str(q))
 
 
-        Coordinator = multiprocessing.Semaphore(100)
+        Coordinator = multiprocessing.Semaphore(32)
         rmtree("./results", ignore_errors=True)
         os.makedirs(os.path.join(os.getcwd(), "results", "env=Sim"))
         Names = (

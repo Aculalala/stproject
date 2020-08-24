@@ -64,7 +64,7 @@ if __name__ == '__main__':
         Names = (
             "K", "p", "Nk", "Loss_f", "Lambda", "Alpha", "q", "id", "Loss_train", "Loss_test", "Ac_train", "Ac_test",
             "non_zero", "i")
-        print(",".join(Names), file=open("./results/env=Sim/Detail_summary.csv", 'w+'), flush=True)
+        print(",".join(Names), file=open(os.path.join(os.getcwd(), "results", "env=Sim", "sum.csv"), 'w+'), flush=True)
         report_lock = multiprocessing.Lock()
         Env_combination = ((3, 100, 50), (3, 150, 100), (5, 150, 100), (5, 200, 150))
 

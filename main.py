@@ -69,6 +69,17 @@ if __name__ == '__main__':
         Env_combination = ((3, 100, 50), (3, 150, 100), (5, 150, 100), (5, 200, 150))
 
         for K, p, Nk in reversed(Env_combination):
+            # Logistic
+            ls = {0.3, 0.1, 0.06, 0.03, 0.01, 0.006, 0.003, 0.001}
+            for l in ls:
+                base_path = path_gen(Env, K, p, Nk, "logistic", l, "NA", "NA")
+                os.makedirs(base_path)
+                Coordinator.acquire()
+
+                print("working on: " + base_path)
+                multiprocessing.Process(target=work, args=(
+                    Coordinator, report_lock, 'logistic', {'l': l}, {'Env': 'Sim', 'K': K, 'p': p, 'Nk': Nk}, base_path,
+                    Repeat)).start()
             # DWD
             ls = {0.06, 0.03, 0.01, 0.006, 0.005, 0.004, 0.003, 0.001, 0.0006}
             als = {0.1, 0.5, 0.9}
@@ -84,17 +95,7 @@ if __name__ == '__main__':
                         Coordinator, report_lock, dwdv, {'l': l, 'alpha': al, 'q': q},
                         {'Env': 'Sim', 'K': K, 'p': p, 'Nk': Nk},
                         base_path, Repeat)).start()
-            # Logistic
-            ls = {0.3, 0.1, 0.06, 0.03, 0.01, 0.006, 0.003, 0.001}
-            for l in ls:
-                base_path = path_gen(Env, K, p, Nk, "logistic", l, "NA", "NA")
-                os.makedirs(base_path)
-                Coordinator.acquire()
 
-                print("working on: " + base_path)
-                multiprocessing.Process(target=work, args=(
-                    Coordinator, report_lock, 'logistic', {'l': l}, {'Env': 'Sim', 'K': K, 'p': p, 'Nk': Nk}, base_path,
-                    Repeat)).start()
     elif Env == 'MNIST':
         K = 10
         p = 28 * 28

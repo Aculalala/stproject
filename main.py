@@ -60,7 +60,7 @@ if __name__ == '__main__':
 
         Coordinator = multiprocessing.Semaphore(16)
         rmtree("./results", ignore_errors=True)
-        os.makedirs(os.path.join(os.getcwd(), "results"))
+        os.makedirs(os.path.join(os.getcwd(), "results", "env=Sim"))
         Names = (
             "K", "p", "Nk", "Loss_f", "Lambda", "Alpha", "q", "id", "Loss_train", "Loss_test", "Ac_train", "Ac_test",
             "non_zero", "i")

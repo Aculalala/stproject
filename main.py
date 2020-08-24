@@ -49,7 +49,7 @@ def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, re
 
 
 Env = 'Sim'
-Repeat = 1
+Repeat = 100
 if __name__ == '__main__':
     if Env == 'Sim':
         def path_gen(Env, K, p, Nk, loss_function, l, al, q):

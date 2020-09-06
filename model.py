@@ -3,7 +3,9 @@ from warnings import simplefilter
 
 simplefilter(action='ignore', category=FutureWarning)
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+
+tf.disable_v2_behavior()
 
 
 

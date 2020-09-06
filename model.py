@@ -33,7 +33,7 @@ class regession_model():
         self.XBpA = self.XB + self.TF_Var_A
 
         if self.loss_function == 'DWD' or self.loss_function == 'DWDnc' or self.loss_function == 'DWDSM':
-            self.ss = self.K * self.loss_para['q'] / ((self.loss_para['q'] + 1) ** 2) / self.loss_para['p']
+            self.ss = self.K * self.loss_para['q'] / ((self.loss_para['q'] + 1) ** 2) / self.p
             self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=self.ss)
             if self.loss_function == 'DWDSM':
                 self.XSM = tf.nn.softmax(self.XBpA)

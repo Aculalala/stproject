@@ -33,8 +33,8 @@ class regession_model():
         self.XBpA = self.XB + self.TF_Var_A
 
         if self.loss_function == 'DWD' or self.loss_function == 'DWDnc' or self.loss_function == 'DWDSM':
-            self.ss = self.loss_para['q'] / ((self.loss_para['q'] + 1) ** 2) / self.loss_para['p']
-            self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=ss)
+            self.ss = self.K * self.loss_para['q'] / ((self.loss_para['q'] + 1) ** 2) / self.loss_para['p']
+            self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=self.ss)
             if self.loss_function == 'DWDSM':
                 self.XSM = tf.nn.softmax(self.XBpA)
                 self.F = tf.gather_nd(self.XSM,
@@ -116,7 +116,7 @@ class regession_model():
             # print(i)
             after = self.train(X, Y)[0]
             # print(after)
-            if (before < after + 1e-6 and self.i > 1000) or self.i > 20000:
+            if (before < after + 1e-6 and self.i > 1000) or self.i > 50000:
                 break
             if isnan(after):
                 if retry:

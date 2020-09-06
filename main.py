@@ -15,7 +15,6 @@ from model import regession_model
 
 
 def work(Coordinator, report_lock, loss_function, loss_para, data, base_path, repeat=1):
-    print(data)
     Model = regession_model(p=data['p'], K=data['K'], loss_function=loss_function, loss_para=loss_para)
     for r in range(repeat):
         if data['Env'] == 'Sim':
@@ -62,7 +61,7 @@ def path_gen(Env, K, p, Nk, loss_function, l, al, q):
 if __name__ == '__main__':
     Env = 'Sim'
     Repeat = 100
-    Coordinator = multiprocessing.Semaphore(1)
+    Coordinator = multiprocessing.Semaphore(96)
     rmtree("./results", ignore_errors=True)
     os.makedirs(os.path.join(os.getcwd(), "results", "env=" + str(Env)))
     Names = (

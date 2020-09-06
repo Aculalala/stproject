@@ -16,7 +16,6 @@ def data_gen(Nk=10, K=4, p=2000, d=4, seed=None):
     return X, Y
 
 
-MNIST_LOADED = False
 MNIST = {}
 
 
@@ -27,8 +26,10 @@ def prepare_MNIST():
     MNIST['X_TE'] = MNIST['X_TE'].reshape((-1, 28 * 28)) / 127.5 - 1
 
 
-def data_gen_MNIST(N, train=True):
-    if MNIST_LOADED == False:
+def data_gen_MNIST(N, train=True, seed=None):
+    if seed != None:
+        np.random.seed(seed % (2 ** 31))
+    if not 'X_TR' in MNIST:
         prepare_MNIST()
     if train:
         idx = np.random.choice(MNIST['X_TR'].shape[0], size=N, replace=False, p=None)
@@ -38,3 +39,27 @@ def data_gen_MNIST(N, train=True):
         return MNIST['X_TE'][idx], MNIST['Y_TE'][idx],
 
 # print(data_gen_MNIST(1))
+
+def preprocess_real():
+    import numpy as np
+    dataf = np.genfromtxt('real_data.csv', delimiter=',')
+    X = dataf[1:, 1:]
+    Y = dataf[1:, 0]
+    X = (X - np.mean(X, axis=0)) / np.std(X, axis=0)
+    Y = Y.astype(np.int)
+    return X, Y
+
+
+REALDATA = {}
+
+
+def data_gen_REAL(seed=0):
+    # not really a seed
+    if not 'X' in REALDATA:
+        REALDATA['X'], REALDATA['Y'] = preprocess_real()
+
+    ind = np.ones((40,), bool)
+    ind[seed] = False
+    X_TR, Y_TR, X_TE, Y_TE = REALDATA['X'][ind], REALDATA['Y'][ind], REALDATA['X'][np.logical_not(ind)], REALDATA['Y'][
+        np.logical_not(ind)]
+    return X_TR, Y_TR, X_TE, Y_TE

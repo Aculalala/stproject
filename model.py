@@ -33,7 +33,8 @@ class regession_model():
         self.XBpA = self.XB + self.TF_Var_A
 
         if self.loss_function == 'DWD' or self.loss_function == 'DWDnc' or self.loss_function == 'DWDSM':
-            self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.03)
+            self.ss = self.loss_para['q'] / ((self.loss_para['q'] + 1) ** 2) / self.loss_para['p']
+            self.optimizer = tf.train.GradientDescentOptimizer(learning_rate=ss)
             if self.loss_function == 'DWDSM':
                 self.XSM = tf.nn.softmax(self.XBpA)
                 self.F = tf.gather_nd(self.XSM,
@@ -92,8 +93,8 @@ class regession_model():
             A, B = self.sess.run([self.TF_Var_A, self.TF_Var_B])
             A = A - np.mean(A)
             self.sess.run([self.set_parameter_A], feed_dict={self.TF_parameter_override: A})
-            B = np.sign(B) * relu(np.abs(B) - self.lambda_1)
-            row_eff = relu(1 - self.lambda_2 / (np.linalg.norm(B, ord=2, axis=1) + 1e-8))
+            B = np.sign(B) * relu(np.abs(B) - self.lambda_1 * self.ss)
+            row_eff = relu(1 - self.ss * self.lambda_2 / (np.linalg.norm(B, ord=2, axis=1) + 1e-8))
             B = B * row_eff[:, np.newaxis]
             if self.loss_function == 'DWD':
                 B[self.i % self.K, ::] -= np.sum(B, axis=0)

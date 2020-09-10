@@ -59,9 +59,9 @@ def path_gen(Env, K, p, Nk, loss_function, l, al, q):
 
 
 if __name__ == '__main__':
-    Env = 'Sim'
-    Repeat = 100
-    Coordinator = multiprocessing.Semaphore(96)
+    Env = 'REAL'
+    Repeat = 40
+    Coordinator = multiprocessing.Semaphore(32)
     rmtree("./results", ignore_errors=True)
     os.makedirs(os.path.join(os.getcwd(), "results", "env=" + str(Env)))
     Names = (

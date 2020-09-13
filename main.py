@@ -5,7 +5,8 @@ from warnings import simplefilter
 simplefilter(action='ignore', category=FutureWarning)
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 from itertools import product
-from shutil import rmtree,cpu_count
+from shutil import rmtree
+from psutil import cpu_count
 
 from numpy import savetxt
 

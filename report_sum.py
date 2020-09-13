@@ -2,10 +2,10 @@ import csv
 
 Parameter = ['K', 'p', 'Nk', 'Loss_f', 'Lambda', 'Alpha', 'q']
 Data = ['Loss_train', 'Loss_test', 'Ac_train', 'Ac_test', 'non_zero', 'i']
-rep = 100
+rep = 40
 with open('grand_sum.csv', 'w', newline='') as g_file:
     writer = csv.DictWriter(g_file, Parameter + Data)
-    with open('./results/env=Sim/sum.csv', newline='') as csvfile:
+    with open('r:/sum.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         sorted_reader = sorted(reader, key=lambda row: list(map(lambda x: row[x], Parameter + ['id'])), reverse=False)
         writer.writerow({x: x for x in Parameter + Data})

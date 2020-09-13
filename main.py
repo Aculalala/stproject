@@ -5,7 +5,7 @@ from warnings import simplefilter
 simplefilter(action='ignore', category=FutureWarning)
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 from itertools import product
-from shutil import rmtree
+from shutil import rmtree,cpu_count
 
 from numpy import savetxt
 
@@ -61,7 +61,7 @@ def path_gen(Env, K, p, Nk, loss_function, l, al, q):
 if __name__ == '__main__':
     Env = 'REAL'
     Repeat = 40
-    Coordinator = multiprocessing.Semaphore(32)
+    Coordinator = multiprocessing.Semaphore(cpu_count(logical = True))
     rmtree("./results", ignore_errors=True)
     os.makedirs(os.path.join(os.getcwd(), "results", "env=" + str(Env)))
     Names = (
@@ -132,7 +132,7 @@ if __name__ == '__main__':
         p = 1714
         Nk = "NA"
         #ls = {3,1,0.6,0.3,0.1,0.06, 0.03, 0.01, 0.006, 0.005, 0.004, 0.003, 0.001, 0.0006,0.0003,0.0001}
-        ls =[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3]
+        ls =[0.001,0.01,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0,1.1,1.2,1.3]
         als = {0.1, 0.5, 0.9}
         qs = {0.5, 1, 20}
         for dwdv in ["DWD", "DWDnc", "DWDSM"]:  # ,"DWDnc","DWDSM"

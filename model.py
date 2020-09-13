@@ -23,7 +23,7 @@ class regession_model():
 
     def __build_graph(self):
         init_scale = 1 / np.sqrt(self.p)
-        init_scale = 0.0
+        init_scale = 0.000001
         self.TF_Var_A = tf.Variable(init_scale * np.random.randn(self.K), trainable=True, dtype=tf.float32, name='PA')
         self.TF_Var_B = tf.Variable(init_scale * np.random.randn(self.p, self.K), trainable=True, dtype=tf.float32,
                                     name='PB')

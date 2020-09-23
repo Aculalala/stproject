@@ -133,7 +133,7 @@ if __name__ == '__main__':
         p = 1714
         Nk = "NA"
         #ls = {3,1,0.6,0.3,0.1,0.06, 0.03, 0.01, 0.006, 0.005, 0.004, 0.003, 0.001, 0.0006,0.0003,0.0001}
-        ls = list(map(lambda x: (x+10)/100,list(range(31))))
+        ls = list(map(lambda x: (x)/100,list(range(41))))
         als = {0.1, 0.5, 0.9}
         qs = {0.5, 1, 20}
         for dwdv in ["DWD", "DWDnc", "DWDSM"]:  # ,"DWDnc","DWDSM"

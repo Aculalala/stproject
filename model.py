@@ -110,7 +110,7 @@ class regession_model():
         return None
 
     def full_auto(self, X, Y, TX, TY):
-        retry = True
+        retry = 3
         auto_report = {}
         before = float('inf')
         while True:
@@ -121,10 +121,10 @@ class regession_model():
             if (before < after + 1e-6 and self.i > 1000) or self.i > 50000:
                 break
             if isnan(after):
-                if retry:
+                if retry>0:
                     self.reset()
                     before = float('inf')
-                    retry = False
+                    retry -= 1
                     continue
                 else:
                     break
